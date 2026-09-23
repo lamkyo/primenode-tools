@@ -169,6 +169,21 @@
       <p class="subtitle">Ước tính phí khớp lệnh Maker/Taker, tỷ suất sinh lời và khoản tiền tiết kiệm thực nhận mỗi ngày</p>
     </div>
 
+    <!-- Live Alpha Radar Banner -->
+    <div class="card" style="padding:14px 20px; margin-bottom:20px; background:#0d1527; border-left:4px solid var(--accent); box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="font-size:12px; font-weight:700; color:#f59e0b; letter-spacing:0.05em;">⚡ LIVE ALPHA RADAR:</span>
+          <span id="market-sentiment" style="font-size:13px; color:#10b981; font-weight:600;">Sentiment: Greed (71)</span>
+        </div>
+        <div style="display:flex; gap:16px; font-size:13px; color:#94a3b8; flex-wrap:wrap;">
+          <span>BTC: <b id="ticker-btc" style="color:#fff;">$84,444</b> (<span id="chg-btc" style="color:#ef4444;">-2.08%</span>)</span>
+          <span>ETH: <b id="ticker-eth" style="color:#fff;">$2,678</b> (<span id="chg-eth" style="color:#ef4444;">-2.65%</span>)</span>
+          <span>Top Funding Arb: <b id="top-arb" style="color:#10b981;">DDOGUSDT (115% APR)</b></span>
+        </div>
+      </div>
+    </div>
+
     <div class="card">
       <div class="grid">
         <div class="field">
@@ -230,6 +245,34 @@
       </div>
     </div>
 
+    <!-- PrimeNode Pro Quantitative Suite Showcase -->
+    <div class="card" style="border: 1px solid rgba(245, 158, 11, 0.4); background: radial-gradient(circle at top right, rgba(245, 158, 11, 0.12), #131c2e 65%);">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;">
+        <div style="flex:1; min-width:280px;">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+            <span class="badge" style="background:rgba(16, 185, 129, 0.2); color:#10b981; border-color:rgba(16, 185, 129, 0.4);">QUANT SUITE 2026</span>
+            <span style="color:#f59e0b; font-size:13px; font-weight:700;">★ ★ ★ ★ ★ (4.9/5)</span>
+          </div>
+          <h2 style="margin:0 0 10px 0; font-size:22px; color:#fff;">PrimeNode Pro Automated Trading Suite</h2>
+          <p style="color:#94a3b8; font-size:14px; margin:0 0 16px 0; line-height:1.5;">
+            Trọn bộ mã nguồn Python & thuật toán tự động hoá 100%: Quét Delta-Neutral Funding Rate Arbitrage (Binance/Bybit), Multi-Pair Dynamic Grid Matrix và Breakout Scalper 5m volume spike tích hợp Telegram real-time alerts.
+          </p>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:13px; color:#cbd5e1; margin-bottom:8px;">
+            <div>⚡ Multi-Pair Dynamic Grid Matrix</div>
+            <div>⚡ Delta-Neutral Funding Arb Scanner</div>
+            <div>⚡ 5m Breakout Volume Spike Scalper</div>
+            <div>⚡ Real-time Telegram Bot Alerts</div>
+          </div>
+        </div>
+        <div style="text-align:center; padding:18px 25px; background:rgba(11, 17, 30, 0.85); border:1px solid #23334d; border-radius:10px; min-width:210px;">
+          <div style="font-size:13px; color:#94a3b8; text-decoration:line-through;">Giá niêm yết $99</div>
+          <div style="font-size:32px; font-weight:800; color:#f59e0b; margin:4px 0;">$39</div>
+          <div style="font-size:12px; color:#10b981; margin-bottom:14px;">Bản quyền vĩnh viễn + Mã nguồn đầy đủ</div>
+          <a href="https://laminate220.gumroad.com/l/doozg" target="_blank" class="btn" style="width:100%; text-align:center; display:block; padding:10px 0;">Sở Hữu Mã Nguồn Ngay ↗</a>
+        </div>
+      </div>
+    </div>
+
     <footer>
       <p>© 2026 PrimeNode Trading Technologies. Bản quyền được bảo lưu.</p>
     </footer>
@@ -265,6 +308,48 @@
       el.addEventListener('input', calculate);
     });
     calculate();
+
+    async function loadLiveAlpha() {
+      try {
+        const [btcP, ethP] = await Promise.all([
+          fetch('https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT').then(r => r.json()).catch(() => null),
+          fetch('https://api.binance.com/api/v3/ticker/24hr?symbol=ETHUSDT').then(r => r.json()).catch(() => null)
+        ]);
+        if (btcP && btcP.lastPrice) {
+          const p = parseFloat(btcP.lastPrice);
+          const chg = parseFloat(btcP.priceChangePercent);
+          document.getElementById('ticker-btc').textContent = '$' + p.toLocaleString('en-US', {maximumFractionDigits: 0});
+          const elChg = document.getElementById('chg-btc');
+          elChg.textContent = (chg >= 0 ? '+' : '') + chg.toFixed(2) + '%';
+          elChg.style.color = chg >= 0 ? 'var(--green)' : 'var(--red)';
+        }
+        if (ethP && ethP.lastPrice) {
+          const p = parseFloat(ethP.lastPrice);
+          const chg = parseFloat(ethP.priceChangePercent);
+          document.getElementById('ticker-eth').textContent = '$' + p.toLocaleString('en-US', {maximumFractionDigits: 0});
+          const elChg = document.getElementById('chg-eth');
+          elChg.textContent = (chg >= 0 ? '+' : '') + chg.toFixed(2) + '%';
+          elChg.style.color = chg >= 0 ? 'var(--green)' : 'var(--red)';
+        }
+
+        const fundingData = await fetch('https://fapi.binance.com/fapi/v1/premiumIndex').then(r => r.json()).catch(() => null);
+        if (Array.isArray(fundingData)) {
+          const usdt = fundingData
+            .filter(d => d.symbol && d.symbol.endsWith('USDT') && d.lastFundingRate)
+            .map(d => ({ sym: d.symbol, r: parseFloat(d.lastFundingRate) }))
+            .sort((a, b) => b.r - a.r);
+          if (usdt.length > 0 && usdt[0].r > 0) {
+            const top = usdt[0];
+            const apr = (top.r * 3 * 365 * 100).toFixed(0);
+            document.getElementById('top-arb').textContent = `${top.sym} (${apr}% APR)`;
+          }
+        }
+      } catch (err) {
+        console.debug('Live Alpha load error:', err);
+      }
+    }
+    loadLiveAlpha();
+    setInterval(loadLiveAlpha, 30000);
   </script>
 </body>
 </html>
