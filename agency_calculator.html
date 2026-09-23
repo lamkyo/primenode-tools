@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agency Client Reporting ROI & Time-Savings Calculator 2026 | PrimeNode Tools</title>
+  <meta name="description" content="Calculate how many billable hours and dollars your marketing agency loses every month on manual client reporting and Looker Studio maintenance.">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: #131c2e;
+      --border: #23334d;
+      --accent: #3b82f6;
+      --green: #10b981;
+      --red: #ef4444;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 40px 15px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 850px;
+      width: 100%;
+    }
+    .nav {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+    .nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      background: #0f172a;
+      border: 1px solid var(--border);
+    }
+    .nav a.active {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .badge {
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    h1 {
+      margin: 15px 0 8px 0;
+      font-size: 28px;
+    }
+    p.subtitle {
+      color: var(--text-muted);
+      margin: 0;
+      font-size: 15px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 26px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 640px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    label {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    input[type=range] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+    .val-display {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .results-box {
+      background: #090e18;
+      border: 1px solid #23334d;
+      border-radius: 8px;
+      padding: 22px;
+      margin-top: 24px;
+    }
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #1a273b;
+      font-size: 15px;
+    }
+    .stat-row:last-child {
+      border-bottom: none;
+    }
+    .highlight-val {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--green);
+    }
+    .cta-banner {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(16, 185, 129, 0.15) 100%);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+    @media (max-width: 640px) {
+      .cta-banner { flex-direction: column; text-align: center; }
+    }
+    .btn {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      padding: 13px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 15px;
+      display: inline-block;
+      white-space: nowrap;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+    .btn:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div style="display:flex; justify-content:center; gap:15px; margin-bottom:25px; flex-wrap:wrap;">
+      <a href="index.html" style="color:#94a3b8; text-decoration:none; font-size:14px; padding:6px 12px; border-radius:6px; background:#0f172a; border:1px solid #23334d;">Crypto & Forex Fee Tool</a>
+      <a href="agency_calculator.html" style="color:#fff; text-decoration:none; font-size:14px; padding:6px 12px; border-radius:6px; background:#2563eb; font-weight:700;">Agency Reporting ROI</a>
+      <a href="https://laminate220.gumroad.com/l/doozg" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:14px; padding:6px 12px; border-radius:6px; background:#0f172a; border:1px solid #f59e0b; font-weight:700;">Pro Trading Pack ($39) ↗</a>
+    </div>
+
+    <div class="header">
+      <span class="badge">Operational Efficiency Audit</span>
+      <h1>Agency Client Reporting Cost & ROI Calculator</h1>
+      <p class="subtitle">Calculate the real payroll cost and billable hours lost every month writing manual client summaries</p>
+    </div>
+
+    <div class="card">
+      <div class="grid">
+        <div class="field">
+          <label>Active Retainer Clients: <span id="clients-val" class="val-display">15</span></label>
+          <input type="range" id="clients" min="2" max="60" value="15">
+        </div>
+        <div class="field">
+          <label>Hours Spent per Client / Month: <span id="hours-val" class="val-display">4</span> hrs</label>
+          <input type="range" id="hours" min="1" max="10" value="4">
+        </div>
+        <div class="field">
+          <label>Blended Account Manager Hourly Rate: $<span id="rate-val" class="val-display">75</span>/hr</label>
+          <input type="range" id="rate" min="30" max="200" step="5" value="75">
+        </div>
+        <div class="field">
+          <label>Estimated Retention Boost with Narrative Briefs</label>
+          <input type="text" value="+15% Lower Client Churn" readonly style="background:#0b111e; border:1px solid var(--border); color:#10b981; font-weight:700; padding:10px; border-radius:6px;">
+        </div>
+      </div>
+
+      <div class="results-box">
+        <div class="stat-row">
+          <span style="color:var(--text-muted);">Total Account Manager Hours Burned / Month:</span>
+          <span id="res-hours" style="font-weight:700; color:var(--red);">60 hrs / month</span>
+        </div>
+        <div class="stat-row">
+          <span style="color:var(--text-muted);">Direct Monthly Payroll Cost on Reporting:</span>
+          <span id="res-cost" style="font-weight:700; color:var(--red);">$4,500 / month</span>
+        </div>
+        <div class="stat-row">
+          <span style="color:var(--text-muted);">Hours Recovered with Client Reporting Copilot (85% reduction):</span>
+          <span id="res-saved-hours" style="font-weight:700; color:var(--green);">51 hrs / month</span>
+        </div>
+        <div class="stat-row">
+          <span style="color:var(--text-muted);">Net Monthly Capacity Recovered:</span>
+          <span id="res-saved-dollars" class="highlight-val">+$3,825 / month</span>
+        </div>
+      </div>
+
+      <div class="cta-banner">
+        <div>
+          <strong style="color:var(--accent); font-size:16px;">Automate your agency reporting in under 60 seconds</strong>
+          <p style="margin:6px 0 0 0; font-size:13px; color:var(--text-muted);">
+            Get branded, client-facing executive performance briefs delivered automatically each monthly cycle.
+          </p>
+        </div>
+        <a href="https://primenode.ai" target="_blank" class="btn">Explore $199 30-Day Pilot</a>
+      </div>
+    </div>
+
+    <footer>
+      <p>© 2026 PrimeNode Technologies. Designed for High-Growth Performance Agencies.</p>
+    </footer>
+  </div>
+
+  <script>
+    function update() {
+      const clients = parseInt(document.getElementById('clients').value);
+      const hours = parseInt(document.getElementById('hours').value);
+      const rate = parseInt(document.getElementById('rate').value);
+
+      document.getElementById('clients-val').textContent = clients;
+      document.getElementById('hours-val').textContent = hours;
+      document.getElementById('rate-val').textContent = rate;
+
+      const totalHours = clients * hours;
+      const totalCost = totalHours * rate;
+      const savedHours = Math.round(totalHours * 0.85);
+      const savedDollars = Math.round(totalCost * 0.85);
+
+      document.getElementById('res-hours').textContent = totalHours + ' hrs / month';
+      document.getElementById('res-cost').textContent = '$' + totalCost.toLocaleString() + ' / month';
+      document.getElementById('res-saved-hours').textContent = savedHours + ' hrs / month';
+      document.getElementById('res-saved-dollars').textContent = '+$' + savedDollars.toLocaleString() + ' / month';
+    }
+
+    document.querySelectorAll('input[type=range]').forEach(el => {
+      el.addEventListener('input', update);
+    });
+    update();
+  </script>
+</body>
+</html>

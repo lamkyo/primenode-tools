@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bảng Tính Phí & Hoàn Tiền Giao Dịch Crypto / Forex 2026 | PrimeNode Tools</title>
+  <meta name="description" content="Công cụ tính toán phí giao dịch Maker/Taker, tỷ suất lợi nhuận đòn bẩy và số tiền hoàn phí nhận được mỗi ngày qua mã đối tác VIP.">
+  <meta property="og:title" content="Bảng Tính Phí & Hoàn Tiền Giao Dịch Crypto / Forex 2026">
+  <meta property="og:description" content="Tối ưu chi phí giao dịch và nhận hoàn phí lên tới 20% - 40% trọn đời.">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: #131c2e;
+      --border: #23334d;
+      --accent: #f59e0b;
+      --green: #10b981;
+      --red: #ef4444;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 40px 15px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 850px;
+      width: 100%;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .badge {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    h1 {
+      margin: 15px 0 8px 0;
+      font-size: 28px;
+    }
+    p.subtitle {
+      color: var(--text-muted);
+      margin: 0;
+      font-size: 15px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 26px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 640px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    label {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    input, select {
+      background: #0b111e;
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input:focus, select:focus {
+      border-color: var(--accent);
+    }
+    .results-box {
+      background: #090e18;
+      border: 1px solid #23334d;
+      border-radius: 8px;
+      padding: 22px;
+      margin-top: 24px;
+    }
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #1a273b;
+      font-size: 15px;
+    }
+    .stat-row:last-child {
+      border-bottom: none;
+    }
+    .highlight-val {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--green);
+    }
+    .cta-banner {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(16, 185, 129, 0.15) 100%);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+    @media (max-width: 640px) {
+      .cta-banner { flex-direction: column; text-align: center; }
+    }
+    .btn {
+      background: var(--accent);
+      color: #000;
+      font-weight: 700;
+      padding: 13px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 15px;
+      display: inline-block;
+      white-space: nowrap;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+    .btn:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div style="display:flex; justify-content:center; gap:15px; margin-bottom:25px; flex-wrap:wrap;">
+      <a href="index.html" style="color:#fff; text-decoration:none; font-size:14px; padding:6px 12px; border-radius:6px; background:#f59e0b; font-weight:700;">Crypto & Forex Fee Tool</a>
+      <a href="agency_calculator.html" style="color:#94a3b8; text-decoration:none; font-size:14px; padding:6px 12px; border-radius:6px; background:#0f172a; border:1px solid #23334d;">Agency Reporting ROI</a>
+      <a href="https://laminate220.gumroad.com/l/doozg" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:14px; padding:6px 12px; border-radius:6px; background:#0f172a; border:1px solid #f59e0b; font-weight:700;">Pro Trading Pack ($39) ↗</a>
+    </div>
+
+    <div class="header">
+      <span class="badge">Hệ Thống Tiết Kiệm Phí Giao Dịch</span>
+      <h1>Bảng Tính Phí & Hoàn Tiền Giao Dịch Crypto / Forex</h1>
+      <p class="subtitle">Ước tính phí khớp lệnh Maker/Taker, tỷ suất sinh lời và khoản tiền tiết kiệm thực nhận mỗi ngày</p>
+    </div>
+
+    <div class="card">
+      <div class="grid">
+        <div class="field">
+          <label>Vốn ký quỹ (Margin USDT / USD)</label>
+          <input type="number" id="margin" value="1000" min="10">
+        </div>
+        <div class="field">
+          <label>Đòn bẩy (Leverage)</label>
+          <select id="leverage">
+            <option value="1">1x (Spot / Giao ngay)</option>
+            <option value="5">5x</option>
+            <option value="10" selected>10x</option>
+            <option value="20">20x</option>
+            <option value="50">50x</option>
+            <option value="100">100x</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Giá vào lệnh (Entry Price)</label>
+          <input type="number" id="entry" value="65000">
+        </div>
+        <div class="field">
+          <label>Giá chốt lệnh (Exit Price)</label>
+          <input type="number" id="exit" value="68250">
+        </div>
+      </div>
+
+      <div class="results-box">
+        <div class="stat-row">
+          <span style="color:var(--text-muted);">Quy mô vị thế thực tế (Notional Value):</span>
+          <span id="res-notional" style="font-weight:600;">$10,000 USDT</span>
+        </div>
+        <div class="stat-row">
+          <span style="color:var(--text-muted);">Lợi nhuận gộp (Gross PnL):</span>
+          <span id="res-gross" style="font-weight:700; color:var(--green);">+$500.00 USDT (+50.0%)</span>
+        </div>
+        <div class="stat-row">
+          <span style="color:var(--text-muted);">Phí sàn tiêu chuẩn (Standard 0.05% cả 2 chiều):</span>
+          <span id="res-fee" style="color:var(--red);">-$10.25 USDT</span>
+        </div>
+        <div class="stat-row">
+          <span style="color:var(--text-muted);">Lợi nhuận ròng thực nhận:</span>
+          <span id="res-net" class="highlight-val">+$489.75 USDT</span>
+        </div>
+        <div class="stat-row">
+          <span style="color:var(--text-muted);">Số tiền hoàn phí trọn đời (20% VIP Rebate):</span>
+          <span id="res-rebate" style="font-weight:700; color:var(--accent);">+$2.05 USDT / lệnh</span>
+        </div>
+      </div>
+
+      <div class="cta-banner">
+        <div>
+          <strong style="color:var(--accent); font-size:16px;">Tiết kiệm lên tới 20% phí giao dịch vĩnh viễn!</strong>
+          <p style="margin:6px 0 0 0; font-size:13px; color:var(--text-muted);">
+            Đăng ký tài khoản qua đường link đối tác PrimeNode để nhận hoàn phí Spot & Futures tự động mỗi ngày vào ví.
+          </p>
+        </div>
+        <a href="https://accounts.binance.com/register?ref=PRIMEALGO" target="_blank" class="btn">Mở Tài Khoản VIP Binance</a>
+      </div>
+    </div>
+
+    <footer>
+      <p>© 2026 PrimeNode Trading Technologies. Bản quyền được bảo lưu.</p>
+    </footer>
+  </div>
+
+  <script>
+    function calculate() {
+      const margin = parseFloat(document.getElementById('margin').value) || 0;
+      const leverage = parseFloat(document.getElementById('leverage').value) || 1;
+      const entry = parseFloat(document.getElementById('entry').value) || 1;
+      const exit = parseFloat(document.getElementById('exit').value) || 1;
+
+      const notional = margin * leverage;
+      const pctMove = (exit - entry) / entry;
+      const grossPnl = notional * pctMove;
+      const exitNotional = notional * (1 + pctMove);
+
+      const feeRate = 0.0005; // 0.05%
+      const totalFee = (notional + exitNotional) * feeRate;
+      const netPnl = grossPnl - totalFee;
+      const rebate = totalFee * 0.20; // 20% cashback
+
+      document.getElementById('res-notional').textContent = '$' + notional.toLocaleString('en-US', {maximumFractionDigits: 2}) + ' USDT';
+      document.getElementById('res-gross').textContent = (grossPnl >= 0 ? '+' : '') + '$' + grossPnl.toFixed(2) + ' USDT (' + (pctMove * leverage * 100).toFixed(1) + '%)';
+      document.getElementById('res-gross').style.color = grossPnl >= 0 ? 'var(--green)' : 'var(--red)';
+      document.getElementById('res-fee').textContent = '-$' + totalFee.toFixed(2) + ' USDT';
+      document.getElementById('res-net').textContent = (netPnl >= 0 ? '+' : '') + '$' + netPnl.toFixed(2) + ' USDT';
+      document.getElementById('res-net').style.color = netPnl >= 0 ? 'var(--green)' : 'var(--red)';
+      document.getElementById('res-rebate').textContent = '+$' + rebate.toFixed(2) + ' USDT / lệnh';
+    }
+
+    document.querySelectorAll('input, select').forEach(el => {
+      el.addEventListener('input', calculate);
+    });
+    calculate();
+  </script>
+</body>
+</html>
