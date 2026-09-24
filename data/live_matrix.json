@@ -1,0 +1,243 @@
+{
+  "updated_at": "2026-09-24T03:32:40.036767+00:00",
+  "system_status": "ONLINE_24_7",
+  "grid_matrix": {
+    "active_pairs_count": 1,
+    "total_capital_usdt": 50.0,
+    "total_active_orders": 10,
+    "pairs": [
+      {
+        "timestamp": "2026-09-24T03:32:36.560822+00:00",
+        "symbol": "XRPUSDT",
+        "current_price": 1.6,
+        "grid_low": 1.44,
+        "grid_high": 1.76,
+        "grids": 10,
+        "usdt_allocated": 50.0,
+        "orders_placed": 10,
+        "mode": "PAPER",
+        "status": "OK"
+      }
+    ]
+  },
+  "breakout_scalper": {
+    "total_trades": 30,
+    "win_rate_pct": 46.7,
+    "cum_pnl_pct": 8.2,
+    "recent_trades": [
+      {
+        "timestamp": "2026-09-24T03:18:26.086042+00:00",
+        "symbol": "BTCUSDT",
+        "spike_ratio": 4.5,
+        "entry_price": 65000.0,
+        "take_profit": 65975.0,
+        "trailing_sl": 64480.0,
+        "exit_price": 65975.0,
+        "result": "TP_HIT",
+        "pnl_pct": 1.5,
+        "mode": "PAPER_TRADE"
+      },
+      {
+        "timestamp": "2026-09-24T03:18:27.792983+00:00",
+        "symbol": "BTCUSDT",
+        "spike_ratio": 4.5,
+        "entry_price": 65000.0,
+        "take_profit": 65975.0,
+        "trailing_sl": 64480.0,
+        "exit_price": 64480.0,
+        "result": "TSL_HIT",
+        "pnl_pct": -0.8,
+        "mode": "PAPER_TRADE"
+      },
+      {
+        "timestamp": "2026-09-24T03:26:18.115213+00:00",
+        "symbol": "BTCUSDT",
+        "spike_ratio": 4.5,
+        "entry_price": 65000.0,
+        "take_profit": 65975.0,
+        "trailing_sl": 64480.0,
+        "exit_price": 64480.0,
+        "result": "TSL_HIT",
+        "pnl_pct": -0.8,
+        "mode": "PAPER_TRADE"
+      },
+      {
+        "timestamp": "2026-09-24T03:26:19.848810+00:00",
+        "symbol": "BTCUSDT",
+        "spike_ratio": 4.5,
+        "entry_price": 65000.0,
+        "take_profit": 65975.0,
+        "trailing_sl": 64480.0,
+        "exit_price": 65975.0,
+        "result": "TP_HIT",
+        "pnl_pct": 1.5,
+        "mode": "PAPER_TRADE"
+      },
+      {
+        "timestamp": "2026-09-24T03:32:32.268172+00:00",
+        "symbol": "BTCUSDT",
+        "spike_ratio": 4.5,
+        "entry_price": 65000.0,
+        "take_profit": 65975.0,
+        "trailing_sl": 64480.0,
+        "exit_price": 65975.0,
+        "result": "TP_HIT",
+        "pnl_pct": 1.5,
+        "mode": "PAPER_TRADE"
+      },
+      {
+        "timestamp": "2026-09-24T03:32:34.001584+00:00",
+        "symbol": "BTCUSDT",
+        "spike_ratio": 4.5,
+        "entry_price": 65000.0,
+        "take_profit": 65975.0,
+        "trailing_sl": 64480.0,
+        "exit_price": 65975.0,
+        "result": "TP_HIT",
+        "pnl_pct": 1.5,
+        "mode": "PAPER_TRADE"
+      }
+    ]
+  },
+  "funding_arbitrage": {
+    "total_opportunities": 20,
+    "top_opportunities": [
+      {
+        "symbol": "TMFUSDT",
+        "mark_price": "28.39000000",
+        "funding_rate_8h_pct": 0.1877,
+        "est_apr_pct": 205.6,
+        "next_funding": 1790236800000,
+        "hedge": {
+          "long_spot": "100%",
+          "short_perp": "100%",
+          "gross_24h_pct": 0.5632,
+          "cost_pct": 0.5,
+          "net_24h_pct": 0.0632,
+          "executable": true
+        }
+      },
+      {
+        "symbol": "BOTUSDT",
+        "mark_price": "28.52000000",
+        "funding_rate_8h_pct": 0.1266,
+        "est_apr_pct": 138.6,
+        "next_funding": 1790236800000,
+        "hedge": {
+          "long_spot": "100%",
+          "short_perp": "100%",
+          "gross_24h_pct": 0.3798,
+          "cost_pct": 0.5,
+          "net_24h_pct": -0.1202,
+          "executable": false
+        }
+      },
+      {
+        "symbol": "CYPHUSDT",
+        "mark_price": "3.60500000",
+        "funding_rate_8h_pct": 0.1148,
+        "est_apr_pct": 125.7,
+        "next_funding": 1790236800000,
+        "hedge": {
+          "long_spot": "100%",
+          "short_perp": "100%",
+          "gross_24h_pct": 0.3445,
+          "cost_pct": 0.5,
+          "net_24h_pct": -0.1555,
+          "executable": false
+        }
+      },
+      {
+        "symbol": "ZMUSDT",
+        "mark_price": "91.89000000",
+        "funding_rate_8h_pct": 0.0808,
+        "est_apr_pct": 88.5,
+        "next_funding": 1790236800000,
+        "hedge": {
+          "long_spot": "100%",
+          "short_perp": "100%",
+          "gross_24h_pct": 0.2425,
+          "cost_pct": 0.5,
+          "net_24h_pct": -0.2575,
+          "executable": false
+        }
+      },
+      {
+        "symbol": "BTWUSDT",
+        "mark_price": "1.03495473",
+        "funding_rate_8h_pct": 0.0627,
+        "est_apr_pct": 68.6,
+        "next_funding": 1790222400000,
+        "hedge": {
+          "long_spot": "100%",
+          "short_perp": "100%",
+          "gross_24h_pct": 0.188,
+          "cost_pct": 0.5,
+          "net_24h_pct": -0.312,
+          "executable": false
+        }
+      }
+    ]
+  },
+  "binance_square": {
+    "total_posts_logged": 10,
+    "recent_posts": [
+      {
+        "timestamp": "2026-09-23T21:56:25.093575+00:00",
+        "content": "🚀 SOL Update — Sep 23, 2026\n\nSOL is currently trading at $114.68 (-3.01% in 24h).\n\n📈 What's happening:\nThe 4H chart shows a bullish divergence on RSI while price tests a major support zone. This confluence often precedes significant upward moves.\n\n💡 Trading Tip:\nConsider dollar-cost averaging (DCA) rather than timing the market. Consistency beats perfection.\n\n$BTC $ETH $BNB $SOL $XRP\n\n#Bitcoin #Crypto #DeFi\n",
+        "status": "pending_manual_post",
+        "char_count": 411
+      },
+      {
+        "timestamp": "2026-09-23T21:56:27.079307+00:00",
+        "content": "📊 XRP Market Analysis — Sep 23, 2026\n\nCurrent price: $1.50\n24h Change: -4.61%\nVolume: $514,602,605\n\n🔍 Technical View:\nThe market is digesting recent gains. Key resistance levels are holding as sellers take profit, but buyer absorption at lower levels indicates strength.\n\nKey levels to watch:\n• Support: $1\n• Resistance: $2\n\n$BTC $ETH $BNB $SOL $XRP\n\n#crypto #trading #xrpanalysis\n",
+        "status": "pending_manual_post",
+        "char_count": 381
+      },
+      {
+        "timestamp": "2026-09-23T21:56:28.572613+00:00",
+        "content": "🚀 BNB Update — Sep 23, 2026\n\nBNB is currently trading at $766.38 (-2.36% in 24h).\n\n📈 What's happening:\nThe market is digesting recent gains. Key resistance levels are holding as sellers take profit, but buyer absorption at lower levels indicates strength.\n\n💡 Trading Tip:\nConsider dollar-cost averaging (DCA) rather than timing the market. Consistency beats perfection.\n\n$BTC $ETH $BNB $SOL $XRP\n\n#Bitcoin #Crypto #DeFi\n",
+        "status": "pending_manual_post",
+        "char_count": 420
+      }
+    ]
+  },
+  "media_studio": {
+    "latest_batch": {
+      "timestamp": "2026-09-23T21:56:19.778001+00:00",
+      "videos_generated": 3,
+      "assets": [
+        "BTC",
+        "ETH",
+        "SOL"
+      ],
+      "repurposed_count": 3,
+      "details": [
+        {
+          "symbol": "BTC",
+          "video_path": "/Users/lam/.gemini/antigravity/scratch/job_to_cash/income_streams/youtube_bot/output/short_btc.mp4",
+          "size_bytes": 622767,
+          "script": "Crypto in 30 seconds. Bitcoin is trading at $84,444, -2.08% in 24 hours. Key focus: key resistance and whale accumulation. Bitcoin continues to lead market momentum. Watch the funding rates and exchange reserves closely. Manage your risk and trade spot with zero stress on Binance. Link in description. Not financial advice.",
+          "price": 84444.01,
+          "change": -2.082
+        },
+        {
+          "symbol": "ETH",
+          "video_path": "/Users/lam/.gemini/antigravity/scratch/job_to_cash/income_streams/youtube_bot/output/short_eth.mp4",
+          "size_bytes": 629919,
+          "script": "Crypto in 30 seconds. Ethereum is trading at $2,678, -2.65% in 24 hours. Key focus: Layer-2 volume and staking inflows. Ethereum fees stay ultra-low on L2 networks while validator staking yields provide steady passive income. Manage your risk and trade spot with zero stress on Binance. Link in description. Not financial advice.",
+          "price": 2677.71,
+          "change": -2.646
+        },
+        {
+          "symbol": "SOL",
+          "video_path": "/Users/lam/.gemini/antigravity/scratch/job_to_cash/income_streams/youtube_bot/output/short_sol.mp4",
+          "size_bytes": 697552,
+          "script": "Crypto in 30 seconds. Solana is trading at $114.64, -3.04% in 24 hours. Key focus: DEX trading volume and high-speed execution. Solana DEX volume is surging with record daily active addresses. Momentum buyers are targeting breakout levels. Manage your risk and trade spot with zero stress on Binance. Link in description. Not financial advice.",
+          "price": 114.64,
+          "change": -3.036
+        }
+      ]
+    }
+  }
+}
