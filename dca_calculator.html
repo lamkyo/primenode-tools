@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crypto DCA & Position Sizing Calculator 2026 | PrimeNode Tools</title>
+  <meta name="description" content="Free Dollar-Cost Averaging (DCA) and Risk-Adjusted Position Size Calculator for Bitcoin, Ethereum, and Altcoins. Optimize your crypto portfolio risk management.">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: #131c2e;
+      --border: #23334d;
+      --accent: #f59e0b;
+      --blue: #3b82f6;
+      --green: #10b981;
+      --red: #ef4444;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 30px 15px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 880px;
+      width: 100%;
+    }
+    .nav {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+    .nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      background: #0f172a;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+    .nav a:hover, .nav a.active {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+      font-weight: 700;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    .badge {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    h1 {
+      margin: 14px 0 8px 0;
+      font-size: 28px;
+    }
+    p.subtitle {
+      color: var(--text-muted);
+      margin: 0;
+      font-size: 15px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    @media (max-width: 640px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    label {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    input, select {
+      background: #0b111e;
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+    }
+    input:focus, select:focus {
+      border-color: var(--accent);
+    }
+    .results-box {
+      background: #090e18;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 9px 0;
+      border-bottom: 1px solid #1a273b;
+      font-size: 14px;
+    }
+    .stat-row:last-child { border-bottom: none; }
+    .btn {
+      background: var(--accent);
+      color: #000;
+      font-weight: 700;
+      padding: 12px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      display: inline-block;
+      transition: opacity 0.2s;
+    }
+    .btn:hover { opacity: 0.9; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="nav">
+      <a href="index.html">Trading Fee Calculator</a>
+      <a href="dca_calculator.html" class="active">DCA & Risk Sizing Tool</a>
+      <a href="agency_calculator.html">Agency Reporting ROI</a>
+      <a href="dashboard.html">Quant Cockpit</a>
+      <a href="https://laminate220.gumroad.com/l/doozg" target="_blank" style="color:var(--accent); font-weight:700;">Pro Trading Pack ($39) ↗</a>
+    </div>
+
+    <div class="header">
+      <span class="badge">Institutional Risk Management</span>
+      <h1>Crypto DCA & Position Size Calculator</h1>
+      <p class="subtitle">Simulate Dollar-Cost Averaging compounding and compute optimal stop-loss position sizing</p>
+    </div>
+
+    <!-- Live Market Ticker -->
+    <div class="card" style="padding:14px 20px; margin-bottom:20px; background:#0d1527; border-left:4px solid var(--accent);">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; font-size:13px;">
+        <span style="font-weight:700; color:var(--accent);">⚡ LIVE CRYPTO PRICES:</span>
+        <span>BTC: <b id="p-btc" style="color:#fff;">Loading...</b></span>
+        <span>ETH: <b id="p-eth" style="color:#fff;">Loading...</b></span>
+        <span>SOL: <b id="p-sol" style="color:#fff;">Loading...</b></span>
+      </div>
+    </div>
+
+    <!-- Mode Tabs -->
+    <div class="card">
+      <h2 style="font-size:18px; margin:0 0 16px 0; color:#fff;">1. Risk-Adjusted Position Sizing Calculator</h2>
+      <div class="grid">
+        <div class="field">
+          <label>Account Portfolio Size ($ USD)</label>
+          <input type="number" id="account-size" value="10000" min="100">
+        </div>
+        <div class="field">
+          <label>Risk Per Trade (% of Account)</label>
+          <select id="risk-pct">
+            <option value="0.005">0.5% (Conservative)</option>
+            <option value="0.01" selected>1.0% (Standard Institutional)</option>
+            <option value="0.02">2.0% (Moderate)</option>
+            <option value="0.05">5.0% (Aggressive)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Entry Price ($)</label>
+          <input type="number" id="entry-price" value="84400">
+        </div>
+        <div class="field">
+          <label>Stop-Loss Price ($)</label>
+          <input type="number" id="stop-price" value="82700">
+        </div>
+      </div>
+
+      <div class="results-box">
+        <div class="stat-row">
+          <span style="color:var(--text-muted);">Maximum Dollar Amount at Risk:</span>
+          <span id="res-dollar-risk" style="font-weight:700; color:var(--red);">$100.00 USD</span>
+        </div>
+        <div class="stat-row">
+          <span style="color:var(--text-muted);">Price Distance to Stop-Loss:</span>
+          <span id="res-stop-distance" style="font-weight:600;">$1,700.00 (2.01%)</span>
+        </div>
+        <div class="stat-row">
+          <span style="color:var(--text-muted);">Recommended Optimal Position Size:</span>
+          <span id="res-pos-size" style="font-size:20px; font-weight:800; color:var(--green);">$4,964.71 USD</span>
+        </div>
+        <div class="stat-row">
+          <span style="color:var(--text-muted);">Asset Units to Buy/Sell:</span>
+          <span id="res-units" style="font-weight:700; color:var(--accent);">0.0588 BTC</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- DCA Compounding Calculator -->
+    <div class="card">
+      <h2 style="font-size:18px; margin:0 0 16px 0; color:#fff;">2. Automated DCA (Dollar-Cost Averaging) Simulator</h2>
+      <div class="grid">
+        <div class="field">
+          <label>Recurring Investment Amount ($)</label>
+          <input type="number" id="dca-amount" value="50" min="5">
+        </div>
+        <div class="field">
+          <label>Frequency</label>
+          <select id="dca-freq">
+            <option value="daily" selected>Daily ($1,500/mo)</option>
+            <option value="weekly">Weekly ($200/mo)</option>
+            <option value="monthly">Monthly ($50/mo)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Time Horizon (Months)</label>
+          <input type="number" id="dca-months" value="12" min="1" max="60">
+        </div>
+        <div class="field">
+          <label>Expected Annual Return Rate (APR %)</label>
+          <input type="number" id="dca-apr" value="45" min="1" max="500">
+        </div>
+      </div>
+
+      <div class="results-box">
+        <div class="stat-row">
+          <span style="color:var(--text-muted);">Total Principal Invested:</span>
+          <span id="res-dca-invested" style="font-weight:600;">$18,250.00 USD</span>
+        </div>
+        <div class="stat-row">
+          <span style="color:var(--text-muted);">Estimated Profit from Compounding:</span>
+          <span id="res-dca-profit" style="font-weight:700; color:var(--green);">+$4,582.15 USD</span>
+        </div>
+        <div class="stat-row">
+          <span style="color:var(--text-muted);">Projected Portfolio Value:</span>
+          <span id="res-dca-total" style="font-size:20px; font-weight:800; color:var(--accent);">$22,832.15 USD</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Upsell Callout -->
+    <div class="card" style="border:1px solid rgba(245, 158, 11, 0.4); background: radial-gradient(circle at top right, rgba(245, 158, 11, 0.12), #131c2e 65%); text-align:center; padding:26px;">
+      <h2 style="margin:0 0 10px 0; font-size:22px; color:#fff;">Automate Your Grid, DCA & Arbitrage 24/7</h2>
+      <p style="color:var(--text-muted); max-width:650px; margin:0 auto 16px auto; font-size:14px;">
+        Deploy Python automated bots directly onto your machine: Multi-Pair Dynamic Grid Bot, 5m Volume Breakout Scalper, and Delta-Neutral Funding Rate Arbitrageur.
+      </p>
+      <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
+        <a href="https://laminate220.gumroad.com/l/doozg" target="_blank" class="btn">Get PrimeNode Pro Suite ($39) ↗</a>
+        <a href="downloads/primenode_pro_quant_suite_v2.zip" class="btn" style="background:#0f172a; color:#fff; border:1px solid var(--border);">Download Source Code Bundle</a>
+      </div>
+    </div>
+
+    <footer style="text-align:center; margin-top:30px; font-size:13px; color:var(--text-muted);">
+      © 2026 PrimeNode Trading Technologies. Open Quantitative Architecture.
+    </footer>
+  </div>
+
+  <script>
+    function calcPositionSize() {
+      const acc = parseFloat(document.getElementById('account-size').value) || 0;
+      const riskPct = parseFloat(document.getElementById('risk-pct').value) || 0.01;
+      const entry = parseFloat(document.getElementById('entry-price').value) || 1;
+      const stop = parseFloat(document.getElementById('stop-price').value) || (entry * 0.98);
+
+      const dollarRisk = acc * riskPct;
+      const priceDistance = Math.abs(entry - stop);
+      const pctDistance = priceDistance / entry;
+
+      let posSize = pctDistance > 0 ? (dollarRisk / pctDistance) : 0;
+      let units = entry > 0 ? (posSize / entry) : 0;
+
+      document.getElementById('res-dollar-risk').textContent = '$' + dollarRisk.toFixed(2) + ' USD';
+      document.getElementById('res-stop-distance').textContent = '$' + priceDistance.toFixed(2) + ' (' + (pctDistance * 100).toFixed(2) + '%)';
+      document.getElementById('res-pos-size').textContent = '$' + posSize.toLocaleString('en-US', {maximumFractionDigits: 2}) + ' USD';
+      document.getElementById('res-units').textContent = units.toFixed(4) + ' Units';
+    }
+
+    function calcDCA() {
+      const amount = parseFloat(document.getElementById('dca-amount').value) || 0;
+      const freq = document.getElementById('dca-freq').value;
+      const months = parseFloat(document.getElementById('dca-months').value) || 12;
+      const apr = parseFloat(document.getElementById('dca-apr').value) || 45;
+
+      let periods = months * 30.4;
+      let contribution = amount;
+      if (freq === 'weekly') {
+        periods = months * 4.33;
+      } else if (freq === 'monthly') {
+        periods = months;
+      }
+
+      const totalInvested = amount * periods;
+      const monthlyRate = (apr / 100) / 12;
+      let totalValue = 0;
+
+      // Compound calculation
+      for (let i = 0; i < months; i++) {
+        const monthlyDeposit = (freq === 'daily') ? amount * 30.4 : (freq === 'weekly') ? amount * 4.33 : amount;
+        totalValue = (totalValue + monthlyDeposit) * (1 + monthlyRate);
+      }
+
+      const profit = Math.max(0, totalValue - totalInvested);
+
+      document.getElementById('res-dca-invested').textContent = '$' + totalInvested.toLocaleString('en-US', {maximumFractionDigits: 2}) + ' USD';
+      document.getElementById('res-dca-profit').textContent = '+$' + profit.toLocaleString('en-US', {maximumFractionDigits: 2}) + ' USD';
+      document.getElementById('res-dca-total').textContent = '$' + totalValue.toLocaleString('en-US', {maximumFractionDigits: 2}) + ' USD';
+    }
+
+    async function loadPrices() {
+      try {
+        const [b, e, s] = await Promise.all([
+          fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT').then(r=>r.json()).catch(()=>null),
+          fetch('https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT').then(r=>r.json()).catch(()=>null),
+          fetch('https://api.binance.com/api/v3/ticker/price?symbol=SOLUSDT').then(r=>r.json()).catch(()=>null),
+        ]);
+        if (b) document.getElementById('p-btc').textContent = '$' + parseFloat(b.price).toLocaleString('en-US', {maximumFractionDigits: 0});
+        if (e) document.getElementById('p-eth').textContent = '$' + parseFloat(e.price).toLocaleString('en-US', {maximumFractionDigits: 0});
+        if (s) document.getElementById('p-sol').textContent = '$' + parseFloat(s.price).toLocaleString('en-US', {maximumFractionDigits: 2});
+      } catch (err) {}
+    }
+
+    document.querySelectorAll('input, select').forEach(el => {
+      el.addEventListener('input', () => {
+        calcPositionSize();
+        calcDCA();
+      });
+    });
+
+    calcPositionSize();
+    calcDCA();
+    loadPrices();
+  </script>
+</body>
+</html>
