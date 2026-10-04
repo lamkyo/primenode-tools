@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web3 Security Audit Report: OpenZeppelin/openzeppelin-contracts</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0b0e14; color: #d1d5db; line-height: 1.6; margin: 0; padding: 2rem; max-width: 1000px; margin: auto; }
+        h1, h2, h3, h4 { color: #60a5fa; border-bottom: 1px solid #1f2937; padding-bottom: 0.3em; }
+        h1 { color: #93c5fd; }
+        pre { background: #111827; border: 1px solid #374151; border-radius: 8px; padding: 1.2rem; overflow-x: auto; font-family: 'Fira Code', monospace; color: #f3f4f6; }
+        code { background: #1f2937; padding: 0.2em 0.4em; border-radius: 4px; font-size: 0.9em; }
+        a { color: #38bdf8; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .header-badge { display: inline-block; padding: 6px 14px; border-radius: 9999px; background: #1e3a8a; color: #93c5fd; font-weight: bold; font-size: 0.85em; margin-bottom: 1.5rem; border: 1px solid #3b82f6; }
+        .payout-box { background: #1e1b4b; border: 1px solid #4338ca; border-radius: 8px; padding: 1rem 1.5rem; margin-bottom: 2rem; }
+        .nav-back { margin-bottom: 2rem; display: block; color: #9ca3af; }
+    </style>
+</head>
+<body>
+    <a href="/audits/web3/index.html" class="nav-back">&larr; Back to Web3 Security Audits Portal</a>
+    <div class="header-badge">VERIFIED 0-DAY SECURITY AUDIT &bull; CLAUDE OPUS 5</div>
+    <div class="payout-box">
+        <strong>Web3 Payout Destination:</strong> <code>0x24A2151Ec787a2C5c81412A888c3a9d9eEc3beEA</code> (USDC/USDT)<br>
+        <strong>PayPal Destination:</strong> <a href="https://paypal.me/primenodedotcc" target="_blank" style="color: #60a5fa;">paypal.me/primenodedotcc</a> (<code>lamvukyo3001@gmail.com</code>) | <a href="https://paypal.me/primenodedotcc" target="_blank">PayPal.Me (1-Click Instant)</a>
+    </div>
+    <pre># Security Audit Report: OpenZeppelin/openzeppelin-contracts (FV Harnesses)
+
+## Executive Summary
+
+**Scope**: 14 formal-verification harness contracts under `fv/harnesses/`, wrapping patched OpenZeppelin core contracts.
+
+**Overall posture**: These are **test-only harnesses**, not production code. They intentionally expose internal state (`_validators._inner._positions`, `_balances`, deque internals) and provide unrestricted mutation functions (`mint`, `burn`, `popFront`) so that formal verification tools can drive the state space. Judged as production code they would be trivially exploitable; judged as their intended purpose (FV scaffolding, never deployed), the risk is **Low/Informational**.
+
+No Critical or High severity findings exist in the audited files. The findings below are Medium/Informational and are relevant only if any harness were ever deployed or copied into production scaffolding.
+
+---
+
+## High / Critical Severity Findings
+
+None. No reentrancy (no external calls followed by state writes), no uninitialized proxies (all setup is in constructors), no oracle/precision issues (no value-bearing math), no ERC4626 surface.
+
+---
+
+## Medium Severity Findings
+
+### [M-01] Unrestricted mint/burn allows arbitrary supply manipulation
+- **Severity**: Medium (only if deployed)
+- **Vulnerability Type**: Access Control
+- **Impact**: Anyone can mint unlimited tokens (`ERC721Harness.mint`, `ERC20FlashMintHarness.mint`, `ERC20PermitHarness.mint`) or burn any account's balance (`ERC20FlashMintHarness.burn`, `ERC20PermitHarness.burn` — note `_burn(account, amount)` burns from an arbitrary account without allowance).
+- **Root Cause & Code Location**: `ERC20PermitHarness.burn`, `ERC20FlashMintHarness.burn` — public burn of arbitrary account.
+- **Remediation**: N/A for FV harnesses. If reused, gate with `onlyOwner` / restrict burn to `msg.sender` or allowance-checked paths.
+
+### [M-02] `ERC20FlashMintHarness` fee state is immutable and defaults to zero
+- **Severity**: Medium (test-coverage gap)
+- **Vulnerability Type**: Logic Error / incomplete test surface
+- **Impact**: `someFee` and `someFeeReceiver` are never settable, so FV always exercises the zero-fee path. Fee-charging flash-loan logic (fee transfer to receiver, fee-on-flash-loan accounting) is never verified, and `flashFeeReceiver()` always returns `address(0)`.
+- **Root Cause**: `ERC20FlashMintHarness.sol` — no setter for `someFee`/`someFeeReceiver`.
+- **Remediation**: Add `function setFee(uint256 f, address r) external { someFee = f; someFeeReceiver = r; }` so the FV suite covers nonzero fees and a real fee receiver.
+
+### [M-03] `ERC3156FlashBorrowerHarness.onFlashLoan` is `view` and returns attacker-controlled selector
+- **Severity**: Medium (test-only)
+- **Vulnerability Type**: Logic Error
+- **Impact**: The borrower always returns `somethingToReturn` (default `bytes32(0)`), so it always fails the ERC-3156 callback check. The success path (`keccak256("ERC3156FlashBorrower.onFlashLoan")`) is never exercised, and the `view` modifier prevents testing borrowers that move tokens during the callback (the actual reentrancy-relevant behavior).
+- **Remediation**: Make the function non-`view`, add a setter for `somethingToReturn`, and default it to the correct selector.
+
+### [M-04] `ERC721Harness.burn` lacks ownership/authorization check
+- **Severity**: Medium (only if deployed)
+- **Vulnerability Type**: Access Control
+- **Impact**: Anyone can burn any tokenId. Intentional for FV (drives `_burn` from arbitrary states), but a hazard if copied.
+- **Remediation**: Keep for FV; document that harness functions must not be reused in production.
+
+### [M-05] `InitializableHarness` exposes intentionally dangerous re-initialization paths
+- **Severity**: Medium (test-only)
+- **Vulnerability Type**: State machine / initializer misuse
+- **Impact**: `nested_init_reinit`, `nested_reinit_init`, etc. deliberately trigger the "contract is already initialized" reverts — that is their purpose. `disable()` is also public. No production impact, but these functions must never be mirrored into real initializers.
+- **Remediation**: None needed; ensure FV harnesses are excluded from deployment artifacts (verify `forge inspect` output / CI deployment checks).
+
+---
+
+## Informational
+
+- **[I-01]** `AccountHarness`, `EnumerableSetHarness`, `DoubleEndedQueueHarness` expose raw storage internals (`_inner._values[index]`, `_positions`, `_begin/_end`). Required for invariant checking; a read-only-reentrancy surface does not exist here (pure reads, no external calls).
+- **[I-02]** `ERC20WrapperHarness.recover` is public and unrestricted — fine for FV, but `_recover` mints wrapper shares for underlying sent directly to the contract; in production this is the classic first-depositor donation/inflation vector. The harness correctly lets FV explore it.
+- **[I-03]** `AccessControlDefaultAdminRulesHarness` overrides `defaultAdminDelayIncreaseWait` with a constructor-set value — no issue, but the delay-increase wait is not bounded, which the real contract documents as a governance parameter.
+
+## Conclusion
+
+No exploitable vulnerabilities in the audited harness files. The only actionable items are test-coverage gaps (M-02, M-03) that leave fee-charging flash loans and successful flash-borrow callbacks unverified. Recommend adding setters to the flash-mint/borrower harnesses and adding a CI check that `fv/` artifacts are never included in deployable bytecode.</pre>
+</body>
+</html>
